@@ -38,4 +38,4 @@ jobs:
               run: npm run build
 
             - name: "Deploy to vercel"
-              run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=auth_preprod
+              run: vercel --prod --token=${{ secrets.TEMP_TOKEN }} --confirm --name=auth_preprod
