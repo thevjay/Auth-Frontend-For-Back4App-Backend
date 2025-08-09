@@ -29,13 +29,21 @@ jobs:
               run: npm install -g vercel
 
             - name: "List directory"
-              run: ls
+              run: |
+                ls
+                echo ${{ vars.VITE_APP_KEY }}
 
             - name: "Run ES Lint"
               run: npm run lint
 
             - name: "Create project Build"
-              run: npm run build
+              run: |
+                echo VITE_APP_KEY=$VITE_APP_KEY >> .env
+                echo VITE_JS_KEY=$VITE_JS_KEY >> .env
+                npm run build
+              env:
+                VITE_APP_KEY: ${{ vars.VITE_APP_KEY }}
+                VITE_JS_KEY: ${{ vars.VITE_JS_KEY }}
 
             - name: "Deploy to vercel"
               run: vercel --prod --token=${{ secrets.TEMP_TOKEN }} --confirm --name=auth_preprod
